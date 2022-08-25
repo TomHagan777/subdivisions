@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en">
+  <head>
+    <script src="Code/p5.js"></script>
+    <link rel="stylesheet" type="text/css" href="Code/style.css">
+    <meta charset="utf-8">
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+
+
+</style>
+  </head>
+  <body>
+    <p2>
+      <a href="#about" style="font-size: 40px; color: white; text-decoration: none;">↓</a>
+    </p2>
+      <div class="wrapper">
+        
+        <!-- SHAPE -->
+          <div class="moduleMaster" id="module01">
+            <div class="shapeBoxA">
+              <p>
+                <button class="moduleButtonClass" id="softSquareButton"></button>
+                <button class="moduleButtonClass" id="rectButton"></button> <br>
+                <button class="moduleButtonClass" id="ellipseButton"></button> 
+                <button class="moduleButtonClass" id="triangleButton"></button><br>
+                <button class="moduleButtonClass" id="stankowskiButton"></button>
+                <button class="moduleButtonClass" id="dogtoothButton"></button>
+              </p>
+            </div>
+              <div class="shapeBoxB">
+                <p>
+                  SHAPE
+                </p>
+            </div>
+          </div> 
+        
+          <!-- BLEND -->
+          <div class="moduleMaster" id="module02">
+            <div class="rezBoxA">
+              <p>
+                <input class="slider" id="opacSlider4" type="range" min="0" max="255" value="50"/> <br>
+                <input class="slider" id="opacSlider3" type="range" min="0" max="255" value="80"/> <br>
+                <input class="slider" id="opacSlider2" type="range" min="0" max="255" value="100"/> <br>
+                <input class="slider" id="opacSlider1" type="range" min="0" max="255" value="255"/> <br>
+                <input class="slider" id="opacSlider5" type="range" min="0" max="255" value="0"/>
+              </p>
+            </div>
+            <div class="rezBoxB">
+              <p>
+                • &nbsp • &nbsp • &nbsp • &nbsp • <br>
+                • &nbsp • &nbsp • &nbsp • <br>
+                • &nbsp • &nbsp • <br>
+                • &nbsp • <br>
+                •
+              </p>
+            </div>
+            <div class="rezBoxC">
+              <p>BLEND</p>
+            </div>
+          </div>
+
+        <!-- STABILITY + CRUSH -->
+          <div class="moduleMaster" id="module03" >
+            <div class="crushBoxA">
+              <p>
+                STABILITY
+              </p>
+              <p style="margin-top: 10px;">
+                <input class="slider" id="posterSlider" type="range" min="2" max="40" value="40"/> 
+                <input class="slider" id="increaseRect" type="range" min="8" max="200" value="8"/> 
+              <p>
+              <p style="margin-top: 10px;">
+                CRUSH
+              </p>
+            </div>
+          </div>
+
+        <!-- EXTRA BUTTONS -->
+          <div class="moduleMaster" id="module04">
+            <div class="buttonBoxA">
+              <p>
+                <button class="buttonClass" id="gridButton">Matrix</button> <br>            <!-- MATRIX -->
+                <button class="buttonClass" id="threshold1Button">Threshold</button> <br>   <!-- THRESHOLD -->
+                <button class="buttonClass" id="invert1Button">Invert</button> <br>         <!-- INVERT -->
+              </p>
+            </div>
+
+            <div class="buttonBoxB" id="inputButtonID">
+              <p>
+                <button class="buttonClass" id="cameraButton" style="margin-bottom: 4px;">Camera</button>               <!-- CAMERA -->                                                     
+              </p> 
+            </div>
+
+            <div class="buttonBoxC">
+              <p>
+                <button class="otherButtonClass" id="exportButton">Save</button>            <!-- SAVE -->
+              </p>
+            </div>
+
+          </div>
+      </div>
+      <div class="informationTitleArea">
+        <h1>About</h1>
+        <div class="informationTitleArea2">
+          <p2>
+            by <a href="https://www.instagram.com/tomhagan777" target="blank" style="color: white; text-decoration: none;">@tomhagan777</a>
+            <br>
+            <a href="https://www.tomhagandesign.com" target="blank" style="color: white; text-decoration: none;">tomhagandesign.com</a>
+          </p2>
+        </div>
+      </div>
+      <div class="informationWrapper">
+        <div class="information" id="about">
+          <p2>
+            This Love Is Modular is a visual effects web application which takes image data 
+            from either a live webcam or digital image and reassembles it with larger 
+            modules of sampled data for creative manipulation.
+            <br>
+            <br>
+            Similar to how something like a distortion effect affects audio 
+            signal – degrading and downsampling the signal for novel and creative 
+            output – this takes an image and downsamples the data for a controlled 
+            demolition of image; from something representational to complete abstraction.
+            <br>
+            <br>
+            Pixelation is nothing new and hardly anything to write home about but what 
+            this proves to be is a unique type of layered pixelation; an exploration and 
+            study into reduction and representation, gestalt theory, and modular graphics.
+            <br>
+            <br>
+            As we reduce and reduce, in form, colour and content, it transforms until the 
+            original transmission of representative image is lost and something else entirely 
+            novel is left in its place, even though technically all the same image data is still 
+            very much present.
+            <br>
+            <br>
+            Coming soon: Video upload, User submission gallery.<br>
+            We're working on it. Patience is a virtue.
+        </div>
+        <div class="profile" id="avatar">
+          <p2>
+            <img src="Media/TomHaganAvatar.jpg" alt="avatar" style="width: 35%; padding:0px 0px 0px 0px;">
+            <img src="Media/TomHaganAvatar.jpg" alt="avatar" style="width: 35%; padding:0px 20px 0px 0px;">
+          </p2>
+        </div>
+      </div>
+
+
+      <script src="Code/sketch.js"></script>     
+
+  </body>
+</html>
