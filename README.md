@@ -1,8 +1,9 @@
-# thisloveismodular
+# subdivisions
             
             
-            This Love Is Modular is a visual effects web application which takes image data 
-            from either a live webcam or digital image and reassembles it with larger 
+            Nothing is added, everything is subtracted, divided and subdivided. 
+            Subdivisions is a visual effects application which takes image data 
+            from a live webcam or digital image and reduces it with larger 
             modules of sampled data for creative manipulation.
 
             Similar to how something like a distortion effect affects audio 
