@@ -4,18 +4,16 @@
 //        Putting an existing piece of footage and plopping it in to this device to lower sample rate
 //        ref: https://creative-coding.decontextualize.com/video/
 //        - really would like to do this – i'm not sure why it is not working. It should be simple
+//        ^^^^ DONE √
+//        
+//        next: video proportions inside canvas - like the image upload <<< DONE √
+//        next: mute video - maybe not ¯\_(ツ)_/¯ 
+//        next: video export – is this even possible?
+//        next: UI upload button (easy) - can you make it into one button?? <<< DONE √
 //
-//  ii.   Redesign interface – make it professional – more rational. Pick a designer to do it in the style of.
-//        Try making the video portal full width or height while constraining to camera and having visible/invisible
-//        controls on composition. Like muons, muons, muons.
-//        - opens up with animating title screen with a delicious typeface
-//        - have all controls in four soft modules at the bottom of screen
-//        - scroll below controls gives you a description and links to website
-//        — title: EIDOLON: OPTICAL GRANULAR SYNTHESIS
+//  ii.   Mobile version. Same code with detecting screensize. Try using 'modes' (if .this size = mode1 } else = mode2)
 //
-//  iii.  Mobile version. Same code with detecting screensize. Try using 'modes' (if .this size = mode1 } else = mode2)
-//
-//  iiii. Fullscreen capability (TRICKY)
+//  iii.  Fullscreen capability (TRICKY)
 //        -> capture.size ?
 //        -> translate ?
 //        -> resize() ?
@@ -50,6 +48,9 @@ let dogtoothArray = []; let dogtoothXSpacer = 1; let dogtoothYSpacer = 1;
 
 let input; //file handler variables
 let img;
+let videoInput;
+let vid;
+let vidWidth = 4;
 
 // function preload(){
 //   cap = createCapture(VIDEO);
@@ -150,8 +151,32 @@ function draw() {
   background(0);
   saveCanvas = createGraphics(width,height); //variable for exports
   
-//Video Capture & Image Upload Display 01
-  if ((img) && (img.width < img.height)) { //portrait
+//Camera Capture & Image Upload Display 01
+
+//VIDEO UPLOAD
+  if ((vid) && (vid.width < vid.height)){ //portrait video
+    background(0);
+    imageMode(CENTER);
+    image(vid, width/2, height/2, vid.width*height/vid.height, height);
+    tint(255,255);
+    loadPixels();
+
+  } else if ((vid) && (vid.width > vid.height)){ //landscape video
+    background(0);
+    imageMode(CENTER);
+    image(vid, width/2, height/2, width, vid.height*width/vid.width);
+    tint(255,255);
+    loadPixels();
+
+  } else if ((vid) && (vid.width === vid.height)){ //square video
+    background(0);
+    imageMode(CENTER); 
+    image(vid, width/2, height/2, vid.width*height/vid.height, height);
+    tint(255,255);
+    loadPixels();
+
+//IMAGE UPLOAD
+  } else if ((img) && (img.width < img.height)) { //portrait
     background(0); //set background to black
     imageMode(CENTER); //scale portrait proportionally
     image(img, width/2, height/2, img.width*height/img.height, height) 
@@ -169,8 +194,8 @@ function draw() {
     image(img, width/2, height/2, img.width*height/img.height, height);
     loadPixels();
 
+//CAMERA FEED
   } else {
-    //Original Capture
     translate(cap.width, 0); //flips camera to provide a mirror image
     scale(-1, 1);
     image(cap, 0, 0, width, height);
@@ -179,27 +204,32 @@ function draw() {
 
   if (cameraToggle == true){
     img = null;
+    vid = null;
     cameraToggle = false;
   } else {
     imageMode(CORNER);
   }
 
-  fill(0,0,0,255-opacSlider5.value()); //transparency for image upload
+  fill(0,0,0,255-opacSlider5.value()); //transparency for image + video upload
   rect(0,0,width*2,height*2);
-  
-  cap.loadPixels();
-  
+
   for (let y = 0; y < cap.height+1; y += increaseRect.value()*dogtoothYSpacer) {
     for (let x = 0; x < cap.width+1; x += increaseRect.value()*stankowskiSpacer*dogtoothXSpacer) {
         let xpos = (x / cap.width) * width;
         let ypos = (y / cap.height) * height;
-      if (img){ //for image upload
+      if (vid){ //for video upload
+        let offset = ((y*d*cap.width*d)+x*d)*4;
+          let vR = pixels[offset + 0];
+          let vG = pixels[offset + 1];
+          let vB = pixels[offset + 2];
+        fill(vR, vG, vB, opacSlider1.value());
+      } else if (img){ //for image upload
         let offset = ((y*d*cap.width*d)+x*d)*4; //scales image to pixel density of display
           let r = pixels[offset + 0];
           let g = pixels[offset + 1];
           let b = pixels[offset + 2];
         fill(r, g, b, opacSlider1.value());
-      } else { //for camera display
+      } else { //for camera feed
         let offset = ((y * cap.width)+x)*4;
           let cR = cap.pixels[offset + 0];
           let cG = cap.pixels[offset + 1];
@@ -244,13 +274,19 @@ function draw() {
     for (let x = 0; x < cap.width+1; x += [increaseRect.value()*vc2]*stankowskiSpacer*dogtoothXSpacer) {
         let xpos = (x / cap.width) * width;
         let ypos = (y / cap.height) * height;
-      if (img){ //for image upload
+      if (vid){ //for video upload
+        let offset = ((y*d*cap.width*d)+x*d)*vidWidth;
+          let vR = pixels[offset + 0];
+          let vG = pixels[offset + 1];
+          let vB = pixels[offset + 2];
+        fill(vR, vG, vB, opacSlider2.value());
+      } else if (img){ //for image upload
         let offset = ((y*d*cap.width*d)+x*d)*4;
           let r = pixels[offset + 0];
           let g = pixels[offset + 1];
           let b = pixels[offset + 2];
         fill(r, g, b, opacSlider2.value());
-      } else { //for camera display
+      } else { //for camera feed
         let offset = ((y * cap.width)+x)*4;
           let cR = cap.pixels[offset + 0];
           let cG = cap.pixels[offset + 1];
@@ -296,13 +332,19 @@ function draw() {
     for (let x = 0; x < cap.width+1; x += [increaseRect.value()*vc3]*stankowskiSpacer*dogtoothXSpacer) {
         let xpos = (x / cap.width) * width;
         let ypos = (y / cap.height) * height;
-      if (img){ //for image upload
+      if (vid){ //for video upload
+        let offset = ((y*d*cap.width*d)+x*d)*vidWidth;
+          let vR = pixels[offset + 0];
+          let vG = pixels[offset + 1];
+          let vB = pixels[offset + 2];
+        fill(vR, vG, vB, opacSlider3.value());
+      } else if (img){ //for image upload
         let offset = ((y*d*cap.width*d)+x*d)*4;
           let r = pixels[offset + 0];
           let g = pixels[offset + 1];
           let b = pixels[offset + 2];
         fill(r, g, b, opacSlider3.value());
-      } else { //for camera display
+      } else { //for camera feed
         let offset = ((y * cap.width)+x)*4;
           let cR = cap.pixels[offset + 0];
           let cG = cap.pixels[offset + 1];
@@ -347,13 +389,19 @@ function draw() {
     for (let x = 0; x < cap.width+1; x += [increaseRect.value()*vc4]*stankowskiSpacer*dogtoothXSpacer) {
         let xpos = (x / cap.width) * width;
         let ypos = (y / cap.height) * height;
-      if (img){ //for image upload
+      if (vid){ //for video upload
+        let offset = ((y*d*cap.width*d)+x*d)*vidWidth;
+          let vR = pixels[offset + 0];
+          let vG = pixels[offset + 1];
+          let vB = pixels[offset + 2];
+        fill(vR, vG, vB, opacSlider4.value());
+      } else if (img){ //for image upload
         let offset = ((y*d*cap.width*d)+x*d)*4;
           let r = pixels[offset + 0];
           let g = pixels[offset + 1];
           let b = pixels[offset + 2];
         fill(r, g, b, opacSlider4.value());
-      } else { //for camera display
+      } else { //for camera feed
         let offset = ((y * cap.width)+x)*4;
           let cR = cap.pixels[offset + 0];
           let cG = cap.pixels[offset + 1];
@@ -432,24 +480,6 @@ function gridNow(){ //matrix
 function cameraNow(){ //camera toggle
   cameraToggle = !cameraToggle;
 } 
-
-function handleFile(file) { //file uploader
-    print(file);
-    if (file.type === 'image') { //image load
-      img = createImg(file.data, '')
-      img.hide();
-
-    } else if (file.type === 'video'){ //video load
-      img = createVideo(file.data, playVid)
-    } else {
-      img = null;
-    }
-} 
-
-function playVid(){
-  img.loop()
-  img.hide();
-}
 
 function rectChange(){ //shape buttons
   rectButton = !rectButton;
@@ -719,3 +749,20 @@ function saveFrame() { //download function
 //   resizeCanvas(640, 480);
 //   centerCanvas();
 // }
+
+function handleFile(file) { //file uploader image
+  print(file);
+  if (file.type === 'image') { //image load
+    img = createImg(file.data, '')
+    img.hide();
+    vid = null;
+  } else {
+    vid = createVideo(file.data, playVid) //video load
+    img = null;
+  }
+} 
+
+function playVid(){
+  vid.loop()
+  vid.hide();
+}

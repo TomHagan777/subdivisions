@@ -91,7 +91,7 @@ html, body {
   }
   .inputButtonClass::before {
     visibility: visible;
-    content: 'Upload Image';;
+    content: 'Upload Media';;
     color: rgb(255, 255, 255);
     font-family: Helvetica, 'Roboto', sans-serif;
     font-weight: 300;
