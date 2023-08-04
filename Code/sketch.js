@@ -1,25 +1,3 @@
-//next step ¬
-//
-//  i.    Make video upload possible. Imagine having this as a video editor… (REALLY HARD)
-//        Putting an existing piece of footage and plopping it in to this device to lower sample rate
-//        ref: https://creative-coding.decontextualize.com/video/
-//        - really would like to do this – i'm not sure why it is not working. It should be simple
-//        ^^^^ DONE √
-//        
-//        next: video proportions inside canvas - like the image upload <<< DONE √
-//        next: mute video - maybe not ¯\_(ツ)_/¯ 
-//        next: video export – is this even possible?
-//        next: UI upload button (easy) - can you make it into one button?? <<< DONE √
-//
-//  ii.   Mobile version. Same code with detecting screensize. Try using 'modes' (if .this size = mode1 } else = mode2)
-//
-//  iii.  Fullscreen capability (TRICKY)
-//        -> capture.size ?
-//        -> translate ?
-//        -> resize() ?
-//        notes: works when intitiates at full screen but not after with canvas size changes???
-
-
 let cap;
 let d;
 
@@ -81,6 +59,10 @@ function setup() {
   //res • shape • crush • stabilty //
 
   //sliders
+
+    //shape slider
+  shapeRange = select('#shapeRange2');
+
     //opactity
   opacSlider4 = select('#opacSlider4'); //04
   opacSlider3 = select('#opacSlider3'); //03
@@ -108,33 +90,13 @@ function setup() {
 
   //upload button
   input = createFileInput(handleFile);
-  // input = select('#handleFile');
   input.addClass('inputButtonClass');
   input.parent('inputButtonID')
   
   //save button
   exportButton = select('#exportButton');
   exportButton.mousePressed(saveFrame);
-  
-  //shape buttons
-  softSquareButton = select('#softSquareButton');
-  softSquareButton.mousePressed(softSquareChange);
 
-  rectButton = select('#rectButton');
-  rectButton.mousePressed(rectChange);
-  
-  ellipseButton = select('#ellipseButton');
-  ellipseButton.mousePressed(ellipseChange);
-
-  triangleButton = select('#triangleButton');
-  triangleButton.mousePressed(triangleChange);
-  
-  stankowskiButton = select('#stankowskiButton')
-  stankowskiButton.mousePressed(stankowskiChange);
-
-  dogtoothButton = select('#dogtoothButton')
-  dogtoothButton.mousePressed(dogtoothChange);
-  
 // //fullscreen option (not working yet)
 //   button3 = createButton('Fullscreen');
 //   button3.style('padding:10px;')  
@@ -150,7 +112,21 @@ function setup() {
 function draw() {
   background(0);
   saveCanvas = createGraphics(width,height); //variable for exports
-  
+
+  if (shapeRange.value() === 1){
+    rectChange();
+  } if (shapeRange.value() === 2){
+    softSquareChange();
+  } if (shapeRange.value() === 3){
+    ellipseChange();
+  } if (shapeRange.value() === 4){
+    triangleChange();
+  } if (shapeRange.value() === 5){
+    stankowskiChange();
+  } if (shapeRange.value() === 6){
+    dogtoothChange();
+  }
+
 //Camera Capture & Image Upload Display 01
 
 //VIDEO UPLOAD
@@ -482,7 +458,7 @@ function cameraNow(){ //camera toggle
 } 
 
 function rectChange(){ //shape buttons
-  rectButton = !rectButton;
+  rectButton = true;
   softSquareButton = false;
   ellipseButton = false;
   triangleButton = false;
@@ -494,7 +470,7 @@ function rectChange(){ //shape buttons
 } 
 
 function softSquareChange(){
-  softSquareButton = !softSquareButton;
+  softSquareButton = true;
   rectButton = false;
   ellipseButton = false;
   triangleButton = false;
@@ -506,7 +482,7 @@ function softSquareChange(){
 }
 
 function ellipseChange(){
-  ellipseButton = !ellipseButton;
+  ellipseButton = true;
   rectButton = false;
   softSquareButton = false;
   triangleButton = false;
@@ -518,7 +494,7 @@ function ellipseChange(){
 }
 
 function triangleChange(){
-  triangleButton = !triangleButton;
+  triangleButton = true;
   rectButton = false;
   softSquareButton = false;
   ellipseButton = false;
@@ -530,7 +506,7 @@ function triangleChange(){
 }
 
 function stankowskiChange(){
-  stankowskiButton = !stankowskiButton;
+  stankowskiButton = true;
   rectButton = false;
   softSquareButton = false;
   ellipseButton = false;
@@ -542,7 +518,7 @@ function stankowskiChange(){
 }
 
 function dogtoothChange(){
-  dogtoothButton = !dogtoothButton;
+  dogtoothButton = true;
   rectButton = false;
   softSquareButton = false;
   ellipseButton = false;
