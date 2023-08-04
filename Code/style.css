@@ -108,6 +108,8 @@ input.shapeRange::-moz-focus-outer {
   font-weight: 300;
   font-size: 14px;
   color: rgb(255, 255, 255);
+  text-transform:uppercase;
+  letter-spacing: 1px;
   
   border: none;
   border-radius: 8px;
@@ -141,6 +143,8 @@ input.shapeRange::-moz-focus-outer {
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
+  text-transform:uppercase;
+  letter-spacing: 1px;
 }
   .inputButtonClass::-webkit-file-upload-button{
     visibility: hidden;
@@ -155,6 +159,7 @@ input.shapeRange::-moz-focus-outer {
     font-size: 14px;
     margin-left: 5%;
     margin-right: 500%;
+    
   }
   .inputButtonClass:hover{
     opacity: 1;
@@ -175,6 +180,8 @@ input.shapeRange::-moz-focus-outer {
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
+  text-transform:uppercase;
+  letter-spacing: 1px;
 }
     .otherButtonClass:hover{
       background-color: rgb(50, 50, 50);
@@ -229,7 +236,7 @@ input.shapeRange::-moz-focus-outer {
     padding: 10px 15px 10px 15px;
     opacity: 0.4;
     transition: opacity 0.5s;
-    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0), rgb(48, 48, 48));
+    background-image: linear-gradient(to bottom right, rgba(0, 0, 0, 0), rgb(50, 50, 50));
   }
 
     #module01{
